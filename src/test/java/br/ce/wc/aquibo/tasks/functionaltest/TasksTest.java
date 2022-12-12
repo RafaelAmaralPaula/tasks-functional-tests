@@ -5,8 +5,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
@@ -16,9 +20,9 @@ public class TasksTest {
     private WebDriver driver;
 
     @Before
-    public void setup(){
-        driver = new ChromeDriver();
-        driver.navigate().to("http://localhost:8001/tasks");
+    public void setup() throws MalformedURLException {
+        driver = new RemoteWebDriver(new URL("http://192.168.100.112:4444/wd/hub") , new ChromeOptions());
+        driver.navigate().to("http://192.168.100.112:8001/tasks");
         driver.manage().timeouts().implicitlyWait(10 , TimeUnit.SECONDS);
     }
 
